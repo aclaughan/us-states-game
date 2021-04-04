@@ -1,30 +1,31 @@
+from turtle import Screen, Turtle
+
 import pandas
-from turtle import Turtle, Screen
 
 FONT = ('Arial', 'regular', 12)
 
 pd = pandas.read_csv("50_states.csv")
 print(pd.head())
-states = pd['state'].to_list()
+states = pd.state.to_list()
 print(states)
 
 scr = Screen()
+scr.title("US States Game")
 scr.setup(width = 725, height = 491)
 scr.bgpic("blank_states_img.gif")
-guess = scr.textinput(title = "Name the US states", prompt = "Name a state").title()
+guessed_states = []
 
-sd = pd[pd['state'] == guess]
-if not sd.empty:
-    print(sd)
+while len(guessed_states) < 50:
+    guess = scr.textinput(title = f"{len(guessed_states)}/50 states found",
+                          prompt = "Guess a state").title()
 
-
-    bob = Turtle()
-    bob.hideturtle()
-    bob.penup()
-    bob.goto(sd['x'], sd['y'])
-    bob.write(sd['state'], align = "center", font = FONT)
-
-
-
+    if guess in states:
+        bob = Turtle()
+        bob.hideturtle()
+        bob.penup()
+        sd = pd[pd.state == guess]
+        bob.goto(int(sd.x), int(sd.y))
+        bob.write(sd.state.item(), align = "center")
+        guessed_states.append(guess)
 
 scr.exitonclick()
