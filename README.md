@@ -1,3 +1,3 @@
-## screen shot
+## screenshot
 
 ![screenshot](screenshot.png)
