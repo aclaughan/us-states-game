@@ -1,7 +1,7 @@
+import logging
 from turtle import Screen, Turtle
 
 import pandas
-import logging
 
 # logging.basicConfig(level=logging.INFO)
 
@@ -32,11 +32,9 @@ while len(guessed_states) < 50:
         bob.write(sd.state.item(), align = "center")
         guessed_states.append(guess)
 
-states_to_learn = []
-
-for state in states:
-    if state not in guessed_states:
-        states_to_learn.append(state)
+states_to_learn = [
+        state for state in states if state not in guessed_states
+        ]
 
 new_df = pandas.DataFrame(states_to_learn)
 new_df.to_csv("states_to_learn.csv")
